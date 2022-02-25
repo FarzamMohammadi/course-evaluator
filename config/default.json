@@ -1,0 +1,4 @@
+{
+  "mongoURI": "mongodb+srv://farzam:farzam1234@cluster0.vjl4u.mongodb.net/course-evaluator?retryWrites=true&w=majority",
+  "jwtSecret": "mysecrettoken"
+}
