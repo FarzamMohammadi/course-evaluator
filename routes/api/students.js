@@ -8,8 +8,21 @@ const { check, validationResult } = require('express-validator');
 
 const Student = require('../../models/Student');
 
+// @route   GET api/students
+// @desc    Get all registered students
+// @access  public
+router.get('/', async (req, res) => {
+  try {
+    const studentsList = await Student.find();
+    res.status(200).json({ students: studentsList });
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).send('Server error');
+  }
+});
+
 // @route   POST api/students
-// @desc    register students
+// @desc    Register students
 // @access  public
 router.post(
   '/',
@@ -79,8 +92,8 @@ router.post(
           res.json({ token });
         }
       );
-    } catch (err) {
-      console.error(err.message);
+    } catch (error) {
+      console.error(error.message);
       res.status(500).send('Server error');
     }
   }
