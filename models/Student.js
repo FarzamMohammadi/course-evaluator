@@ -11,23 +11,18 @@ const StudentSchema = new mongoose.Schema({
   },
   fname: {
     type: String,
-    required: true,
   },
   lname: {
     type: String,
-    required: true,
   },
   address: {
     type: String,
-    required: true,
   },
   city: {
     type: String,
-    required: true,
   },
   phoneNumber: {
     type: String,
-    required: true,
   },
   email: {
     type: String,
@@ -35,7 +30,6 @@ const StudentSchema = new mongoose.Schema({
   },
   program: {
     type: String,
-    required: true,
   },
   date: {
     type: Date,
