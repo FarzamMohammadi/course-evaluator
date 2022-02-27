@@ -8,16 +8,6 @@ const { check, validationResult } = require('express-validator');
 
 const Student = require('../../models/Student');
 
-// @route   GET api/auth
-// @desc    test route
-// @access  public
-router.get('/', auth, async (req, res) => {
-  try {
-    const student = await Student.findById(req.user.id).select('-password');
-    res;
-  } catch (error) {}
-});
-
 // @route   POST api/auth
 // @desc    Authenticate user & get token
 // @access  public

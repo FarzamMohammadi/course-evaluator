@@ -11,16 +11,14 @@ const CourseSchema = mongoose.Schema({
   },
   section: {
     type: String,
-    required: true,
   },
   semester: {
     type: String,
-    required: true,
   },
   attendees: [
     {
       user: {
-        type: Schema.Types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref: 'students',
       },
     },
