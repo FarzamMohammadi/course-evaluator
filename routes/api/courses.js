@@ -9,7 +9,10 @@ const { check, validationResult } = require('express-validator');
 const Course = require('../../models/Course');
 const Student = require('../../models/Student');
 
-router.get('/', auth, async (res, next) => {
+// @route   GET api/courses
+// @desc    Get all registered courses
+// @access  private
+router.get('/', auth, async (req, res) => {
   try {
     const courseList = await Course.find();
     res.status(200).json({ courses: courseList });
@@ -19,6 +22,9 @@ router.get('/', auth, async (res, next) => {
   }
 });
 
+// @route   POST api/courses
+// @desc    Creates new course
+// @access  private
 router.post(
   '/',
   [
@@ -51,6 +57,9 @@ router.post(
   }
 );
 
+// @route   PUT api/courses/:id
+// @desc    Edits course
+// @access  private
 router.put(
   '/:id',
   [
@@ -74,6 +83,7 @@ router.put(
       course.name = name;
       course.section = section;
       course.semester = semester;
+      course.save();
       return res.json(course);
     } catch (error) {
       console.error(error.message);
@@ -81,5 +91,48 @@ router.put(
     }
   }
 );
+
+// @route   POST api/courses/:id/addstudent
+// @desc    Add new current user to course (if they don't already exist)
+// @access  private
+router.put('/:id/addstudent', auth, async (req, res) => {
+  try {
+    const attendeeToAdd = await Student.findById(req.user.id);
+    const courseToUpdate = await Course.findById(req.params.id);
+    const currentAttendees = courseToUpdate.attendees;
+    var currentIds = currentAttendees.map(function (attendee) {
+      return attendee.id;
+    });
+    const attendeeExists = currentIds.includes(attendeeToAdd.id);
+    // If user is not already an attendee in DB record
+    if (!attendeeExists) {
+      course = await Course.findOneAndUpdate(
+        { _id: req.params.id },
+        { new: true }
+      );
+      course.attendees.unshift(attendeeToAdd);
+      await course.save();
+      return res.json(course);
+    } else {
+      res.status(400).json({ msg: 'You are already an attendee' });
+    }
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).send('Server error');
+  }
+});
+
+// @route   PUT api/courses/:id
+// @desc    Edits course
+// @access  private
+router.delete('/:id', auth, async (req, res) => {
+  try {
+    course = await Course.findOneAndDelete({ _id: req.params.id });
+    res.json({ msg: 'Course deleted' });
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).send('Server error');
+  }
+});
 
 module.exports = router;
