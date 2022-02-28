@@ -1,38 +1,24 @@
 import axios from 'axios';
 import setAuthToken from '../utils/setAuthToken';
 
-// Load user
-export const loadUser = async function () {
-  if (localStorage.token) {
-    console.log('THIS IS THE TOKEN!!');
-    console.log(localStorage.token);
-    setAuthToken(localStorage.token);
-  }
-  try {
-    const res = await axios.get('http://localhost:5000/api/auth');
-    console.log(res);
-  } catch (error) {
-    console.log(error.message);
-  }
-};
-
 // Register User
-export const register = async function ({ name, email, password }) {
-  const body = { name, email, password };
+export const register = async function (fromData) {
   try {
-    const res = await axios.post('http://localhost:5000/api/users', body);
-  } catch (error) {}
+    const res = await axios.post('/api/students', fromData);
+    return true;
+  } catch (error) {
+    alert('Could not register');
+  }
 };
 
 // Login User
 export const login = async function (fromData) {
-  console.log(fromData);
   try {
-    const res = await axios.get('/api/students', fromData);
-    console.log(res);
-    return true;
+    const res = await axios.post('/api/auth', fromData);
+    const token = res.data.token;
+    return token;
   } catch (error) {
-    console.log(error.message);
+    alert('Could not log in');
   }
 };
 

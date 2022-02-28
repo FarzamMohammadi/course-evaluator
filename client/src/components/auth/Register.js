@@ -1,6 +1,6 @@
 import React, { useState, Component, Fragment } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import register from '../../actions/auth';
+import { register } from '../../actions/auth';
 import './auth.css';
 
 export default function Register(props) {
@@ -29,9 +29,16 @@ export default function Register(props) {
     email,
   } = formData;
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
-    // navigate('/courses');
+    const registerPromise = await register(formData).then(function (
+      isRegistered
+    ) {
+      if (isRegistered) {
+        alert('Account Created!');
+        navigate('/');
+      }
+    });
   }
 
   const onChange = (e) =>

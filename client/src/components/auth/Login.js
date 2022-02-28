@@ -12,10 +12,15 @@ export default function Login(props) {
 
   const { password, email } = formData;
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
-    const value = login(formData);
-    // navigate('/courses');
+    const loginPromise = await login(formData).then(function (token) {
+      if (token) {
+        props.onIsAuthChange(true);
+        props.onTokenChange(token);
+        navigate('/courses');
+      }
+    });
   }
 
   const onChange = (e) =>

@@ -12,12 +12,16 @@ export default class App extends Component {
 
     this.state = {
       isAuthenticated: false,
+      token: '',
     };
     this.handleAuthenticationChange =
       this.handleAuthenticationChange.bind(this);
   }
-  handleAuthenticationChange = (email) => {
-    this.setState({ email });
+  handleAuthenticationChange = (isAuthenticated) => {
+    this.setState({ isAuthenticated });
+  };
+  handleTokenChange = (token) => {
+    this.setState({ token });
   };
 
   render() {
@@ -30,7 +34,9 @@ export default class App extends Component {
             element={
               <Login
                 isAuthenticated={this.state.isAuthenticated}
+                token={this.state.token}
                 onIsAuthChange={this.handleAuthenticationChange}
+                onTokenChange={this.handleTokenChange}
               />
             }
           />
