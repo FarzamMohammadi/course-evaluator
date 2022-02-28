@@ -59,7 +59,7 @@ export default function Register(props) {
             <p>Student Number:*</p>
             <input
               type='text'
-              placeholder='Student Number*'
+              placeholder='30110940'
               name='studentNumber'
               value={studentNumber}
               onChange={(e) => onChange(e)}
@@ -69,7 +69,7 @@ export default function Register(props) {
             <p>Frist Name:</p>
             <input
               type='text'
-              placeholder='First Name'
+              placeholder='Billy'
               name='fname'
               value={fname}
               onChange={(e) => onChange(e)}
@@ -79,7 +79,7 @@ export default function Register(props) {
             <p>Last Name:</p>
             <input
               type='text'
-              placeholder='Last Name'
+              placeholder='Bobbilson'
               name='lname'
               value={lname}
               onChange={(e) => onChange(e)}
@@ -89,7 +89,7 @@ export default function Register(props) {
             <p>Address:</p>
             <input
               type='text'
-              placeholder='Address'
+              placeholder='1928 Yonge street'
               name='address'
               value={address}
               onChange={(e) => onChange(e)}
@@ -99,7 +99,7 @@ export default function Register(props) {
             <p>City:</p>
             <input
               type='text'
-              placeholder='City'
+              placeholder='Toronto'
               name='city'
               value={city}
               onChange={(e) => onChange(e)}
@@ -109,7 +109,7 @@ export default function Register(props) {
             <p>Phone Number:</p>
             <input
               type='text'
-              placeholder='Phone Number'
+              placeholder='6471231234'
               name='phoneNumber'
               value={phoneNumber}
               onChange={(e) => onChange(e)}
@@ -119,7 +119,7 @@ export default function Register(props) {
             <p>Program:</p>
             <input
               type='text'
-              placeholder='Program'
+              placeholder='Software Eng'
               name='program'
               value={program}
               onChange={(e) => onChange(e)}
@@ -129,7 +129,7 @@ export default function Register(props) {
             <p>Email:*</p>
             <input
               type='email'
-              placeholder='Email Address*'
+              placeholder='hello@react.com'
               name='email'
               value={email}
               onChange={(e) => onChange(e)}

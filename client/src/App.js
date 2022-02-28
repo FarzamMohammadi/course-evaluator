@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import './App.css';
 import Login from './components/auth/Login';
 import Register from './components/auth/Register';
+import AddCourse from './components/courses/AddCourse';
 import setAuthToken from './utils/setAuthToken';
 import { loadUser } from './actions/auth';
 
@@ -45,6 +46,20 @@ export default class App extends Component {
             path='/register'
             element={<Register isAuthenticated={this.state.isAuthenticated} />}
           />
+          <Route exact path='/add-course'>
+            <Route
+              path=':id'
+              element={
+                <AddCourse isAuthenticated={this.state.isAuthenticated} />
+              }
+            />
+            <Route
+              path=''
+              element={
+                <AddCourse isAuthenticated={this.state.isAuthenticated} />
+              }
+            />
+          </Route>
         </Routes>
       </Router>
     );

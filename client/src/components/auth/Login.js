@@ -18,7 +18,7 @@ export default function Login(props) {
       if (token) {
         props.onIsAuthChange(true);
         props.onTokenChange(token);
-        navigate('/courses');
+        navigate('/add-course');
       }
     });
   }
@@ -38,7 +38,7 @@ export default function Login(props) {
             <p>Email:</p>
             <input
               type='email'
-              placeholder='hello@courseeval.com'
+              placeholder='hello@react.com'
               name='email'
               value={email}
               onChange={(e) => onChange(e)}

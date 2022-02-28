@@ -14,13 +14,15 @@ export const register = async function (fromData) {
 // Login User
 export const login = async function (fromData) {
   try {
+    localStorage.removeItem('token');
     const res = await axios.post('/api/auth', fromData);
     const token = res.data.token;
+    localStorage.setItem('token', token);
+    setAuthToken(token);
+    console.log(axios.defaults.headers.common['x-auth-token']);
+
     return token;
   } catch (error) {
     alert('Could not log in');
   }
 };
-
-// Logout / Clear Profile
-export const logout = () => (isAuthenticated) => {};
