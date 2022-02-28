@@ -1,33 +1,67 @@
 import React, { useState, Component, Fragment } from 'react';
 import { useNavigate, Link, useParams } from 'react-router-dom';
-import { registerCourse } from '../../actions/courses';
+import {
+  registerCourse,
+  getCourseById,
+  updateCourse,
+} from '../../actions/courses';
 // import './auth.css';
 
 export default function AddCourse(props) {
-  let { id } = useParams();
-  if (id) {
-    alert(id);
-  }
   let navigate = useNavigate();
+  const [executed, setExecuted] = useState(false);
+  const [courseId, setCourseId] = useState(useParams().id);
   const [formData, setFormData] = useState({
     code: '',
     name: '',
     section: '',
     semester: '',
   });
-
+  if (courseId && !executed) {
+    getPost();
+  }
   const { code, name, section, semester } = formData;
+
+  async function getPost() {
+    const getCoursePromise = await getCourseById(courseId).then(function (
+      post
+    ) {
+      if (post) {
+        setFormData(post);
+        setExecuted(true);
+      }
+    });
+  }
 
   async function handleSubmit(e) {
     e.preventDefault();
-    const courseRegistrationPromise = await registerCourse(formData).then(
-      function (isRegistered) {
-        if (isRegistered) {
-          alert('Course Created!');
-          navigate('/list-courses');
+    if (!courseId) {
+      const courseRegistrationPromise = await registerCourse(formData).then(
+        function (isRegistered) {
+          if (isRegistered) {
+            alert('Course Created!');
+            navigate('/list-courses');
+          }
         }
-      }
-    );
+      );
+    } else {
+      const updateCoursePromise = await updateCourse(formData, courseId).then(
+        function (isUpdated) {
+          if (isUpdated) {
+            alert('Course Updated!');
+            navigate('/list-courses');
+          }
+        }
+      );
+    }
+  }
+
+  function getWelcomeMsg() {
+    if (courseId) {
+      return <h1>Edit Course</h1>;
+    } else {
+      return <h1>Add Course</h1>;
+    }
   }
 
   const onChange = (e) =>
@@ -39,10 +73,7 @@ export default function AddCourse(props) {
   return (
     <Fragment>
       <section className='container'>
-        <h1 className='large text-primary'>Sign Up</h1>
-        <p className='lead'>
-          <i className='fas fa-user'></i> Log into Your Account
-        </p>
+        {getWelcomeMsg()}
         <form className='form' onSubmit={(e) => handleSubmit(e)}>
           <div className='form-group'>
             <p>Course Code:*</p>
@@ -85,7 +116,7 @@ export default function AddCourse(props) {
             />{' '}
           </div>
           <button type='submit' className='register-button'>
-            Register
+            Submit
           </button>
         </form>
         <p>

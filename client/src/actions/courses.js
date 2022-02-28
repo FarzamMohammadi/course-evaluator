@@ -5,8 +5,6 @@ const isLoggedIn = axios.defaults.headers.common['x-auth-token'];
 // Register Course
 export const registerCourse = async function (fromData) {
   try {
-    console.log(axios.defaults.headers.common['x-auth-token']);
-
     const res = await axios.post('/api/courses', fromData);
     return true;
   } catch (error) {
@@ -18,12 +16,38 @@ export const registerCourse = async function (fromData) {
   }
 };
 
+// Register Course
+export const updateCourse = async function (fromData, id) {
+  try {
+    const res = await axios.put('/api/courses/' + id, fromData);
+    return true;
+  } catch (error) {
+    if (isLoggedIn) {
+      alert('Could not register course');
+    } else {
+      alert('Need to log in first');
+    }
+  }
+};
+
+// Get Course By Id
+export const getCourseById = async function (id) {
+  try {
+    const res = await axios.get('/api/courses/' + id);
+    const course = res.data.course;
+    return course;
+  } catch (error) {
+    if (isLoggedIn) {
+      alert('Could not register course');
+    } else {
+      alert('Need to log in first');
+    }
+  }
+};
 // Get List of Courses
 export const getCourses = async function (fromData) {
   try {
-    console.log(axios.defaults.headers.common['x-auth-token']);
-
-    const res = await axios.post('/api/courses', fromData);
+    const res = await axios.get('/api/courses', fromData);
     return true;
   } catch (error) {
     if (isLoggedIn) {

@@ -19,8 +19,6 @@ export const login = async function (fromData) {
     const token = res.data.token;
     localStorage.setItem('token', token);
     setAuthToken(token);
-    console.log(axios.defaults.headers.common['x-auth-token']);
-
     return token;
   } catch (error) {
     alert('Could not log in');

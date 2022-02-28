@@ -22,6 +22,19 @@ router.get('/', auth, async (req, res) => {
   }
 });
 
+// @route   GET api/courses/:id
+// @desc    Get all registered courses
+// @access  private
+router.get('/:id', auth, async (req, res) => {
+  try {
+    const course = await Course.findById(req.params.id);
+    res.status(200).json({ course: course });
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).send('Server error');
+  }
+});
+
 // @route   POST api/courses
 // @desc    Creates new course
 // @access  private

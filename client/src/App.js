@@ -7,9 +7,15 @@ import AddCourse from './components/courses/AddCourse';
 import setAuthToken from './utils/setAuthToken';
 import { loadUser } from './actions/auth';
 
+function setAuth() {
+  if (localStorage.token) {
+    setAuthToken(localStorage.token);
+  }
+}
+
 export default class App extends Component {
   constructor() {
-    super();
+    super(setAuth());
 
     this.state = {
       isAuthenticated: false,
