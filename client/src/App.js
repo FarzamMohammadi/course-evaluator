@@ -1,25 +1,46 @@
-import logo from './logo.svg';
+import React, { Component, useEffect } from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import './App.css';
+import Login from './components/auth/Login';
+import Register from './components/auth/Register';
+import setAuthToken from './utils/setAuthToken';
+import { loadUser } from './actions/auth';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+export default class App extends Component {
+  constructor() {
+    super();
+
+    this.state = {
+      isAuthenticated: false,
+    };
+    this.handleAuthenticationChange =
+      this.handleAuthenticationChange.bind(this);
+  }
+  handleAuthenticationChange = (email) => {
+    this.setState({ email });
+  };
+
+  render() {
+    return (
+      <Router>
+        <Routes>
+          <Route
+            exact
+            path='/'
+            element={
+              <Login
+                isAuthenticated={this.state.isAuthenticated}
+                onIsAuthChange={this.handleAuthenticationChange}
+              />
+            }
+          />
+          <Route
+            exact
+            path='/register'
+            element={<Register isAuthenticated={this.state.isAuthenticated} />}
+          />
+        </Routes>
+      </Router>
+    );
+  }
 }
-
-export default App;
