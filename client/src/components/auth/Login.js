@@ -18,7 +18,7 @@ export default function Login(props) {
       if (token) {
         props.onIsAuthChange(true);
         props.onTokenChange(token);
-        navigate('/add-course');
+        navigate('/course');
       }
     });
   }

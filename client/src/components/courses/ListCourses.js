@@ -1,6 +1,6 @@
 import React, { useState, Component, Fragment } from 'react';
 import { useNavigate, Link, useParams } from 'react-router-dom';
-import { getCourses } from '../../actions/courses';
+import { getCourses, addAsAttendee } from '../../actions/courses';
 // import './auth.css';
 
 export default function Courses() {
@@ -17,8 +17,10 @@ export default function Courses() {
     });
   }
 
-  async function addAsAttendee() {
-    const addAsAttendeePromise = await addAsAttendee().then(function (isAdded) {
+  async function addStudent(courseId) {
+    const addAsAttendeePromise = await addAsAttendee(courseId).then(function (
+      isAdded
+    ) {
       if (isAdded) {
         alert("You've been added to this course");
       }
@@ -28,7 +30,6 @@ export default function Courses() {
   function renderTableData() {
     getCoursesToShow();
     return courses?.map((course, index) => {
-      console.log('HERE!' + course);
       const { _id, name, code, section, semester } = course;
       return (
         <tr key={_id}>
@@ -39,11 +40,9 @@ export default function Courses() {
           <Link to={`/course/${_id}`}>
             <button type='button'>Update</button>
           </Link>
-          <Link to='/dashboard'>
-            <button type='button' onClick={addAsAttendee}>
-              Add As Attendee
-            </button>
-          </Link>
+          <button type='button' onClick={() => addStudent(_id)}>
+            Add As Attendee
+          </button>
           <Link to='/dashboard'>
             <button type='button'>List Attendees</button>
           </Link>

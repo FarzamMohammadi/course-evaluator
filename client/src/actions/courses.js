@@ -61,11 +61,11 @@ export const getCourses = async function () {
 };
 
 // Add as attendee
-export const addAsAttendee = async function () {
+export const addAsAttendee = async function (courseId) {
   try {
-    const res = await axios.get('/api/courses/');
-    const courses = res.data.courses;
-    return courses;
+    console.log();
+    const res = await axios.put(`/api/courses/${courseId}/addstudent`);
+    return true;
   } catch (error) {
     if (isLoggedIn) {
       alert('Could not register course');

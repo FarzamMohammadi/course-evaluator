@@ -110,6 +110,7 @@ router.put(
 // @access  private
 router.put('/:id/addstudent', auth, async (req, res) => {
   try {
+    console.log('HELLOO!');
     const attendeeToAdd = await Student.findById(req.user.id);
     const courseToUpdate = await Course.findById(req.params.id);
     const currentAttendees = courseToUpdate.attendees;
