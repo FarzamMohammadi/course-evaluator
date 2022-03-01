@@ -7,7 +7,7 @@ import {
 } from '../../actions/courses';
 // import './auth.css';
 
-export default function AddCourse(props) {
+export default function AddCourse() {
   let navigate = useNavigate();
   const [executed, setExecuted] = useState(false);
   const [courseId, setCourseId] = useState(useParams().id);
@@ -18,16 +18,16 @@ export default function AddCourse(props) {
     semester: '',
   });
   if (courseId && !executed) {
-    getPost();
+    getCourse();
   }
   const { code, name, section, semester } = formData;
 
-  async function getPost() {
+  async function getCourse() {
     const getCoursePromise = await getCourseById(courseId).then(function (
-      post
+      course
     ) {
-      if (post) {
-        setFormData(post);
+      if (course) {
+        setFormData(course);
         setExecuted(true);
       }
     });

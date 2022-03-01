@@ -44,14 +44,31 @@ export const getCourseById = async function (id) {
     }
   }
 };
+
 // Get List of Courses
-export const getCourses = async function (fromData) {
+export const getCourses = async function () {
   try {
-    const res = await axios.get('/api/courses', fromData);
-    return true;
+    const res = await axios.get('/api/courses/');
+    const courses = res.data.courses;
+    return courses;
   } catch (error) {
     if (isLoggedIn) {
-      alert('Could not get the list of courses');
+      alert('Could not register course');
+    } else {
+      alert('Need to log in first');
+    }
+  }
+};
+
+// Add as attendee
+export const addAsAttendee = async function () {
+  try {
+    const res = await axios.get('/api/courses/');
+    const courses = res.data.courses;
+    return courses;
+  } catch (error) {
+    if (isLoggedIn) {
+      alert('Could not register course');
     } else {
       alert('Need to log in first');
     }
