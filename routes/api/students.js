@@ -21,6 +21,19 @@ router.get('/', async (req, res) => {
   }
 });
 
+// @route   GET api/students
+// @desc    Get all registered students
+// @access  public
+router.get('/:id', async (req, res) => {
+  try {
+    const student = await Student.findById(req.params.id);
+    res.status(200).json({ student: student });
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).send('Server error');
+  }
+});
+
 // @route   POST api/students
 // @desc    Register students
 // @access  public

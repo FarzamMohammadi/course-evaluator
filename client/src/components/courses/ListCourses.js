@@ -1,7 +1,7 @@
 import React, { useState, Component, Fragment } from 'react';
 import { useNavigate, Link, useParams } from 'react-router-dom';
-import { getCourses, addAsAttendee } from '../../actions/courses';
-// import './auth.css';
+import { getCourses, addAsAttendee, deleteCourse } from '../../actions/courses';
+import './courses.css';
 
 export default function Courses() {
   const [courses, setCourses] = useState();
@@ -12,7 +12,6 @@ export default function Courses() {
       if (courses && !executed) {
         setCourses(courses);
         setExecuted(true);
-        console.log(courses);
       }
     });
   }
@@ -25,6 +24,11 @@ export default function Courses() {
         alert("You've been added to this course");
       }
     });
+  }
+
+  function handleDelete(id) {
+    deleteCourse(id);
+    window.location.reload();
   }
 
   function renderTableData() {
@@ -43,11 +47,13 @@ export default function Courses() {
           <button type='button' onClick={() => addStudent(_id)}>
             Add As Attendee
           </button>
-          <Link to='/dashboard'>
+          <Link to={`/list-attendees/${_id}`}>
             <button type='button'>List Attendees</button>
           </Link>
-          <Link to={`/add-course/${_id}`}>
-            <button type='button'>Drop</button>
+          <Link to={'/list-courses'}>
+            <button type='button' onClick={() => handleDelete(_id)}>
+              Drop
+            </button>
           </Link>
         </tr>
       );
@@ -59,6 +65,9 @@ export default function Courses() {
       <section className='container'>
         <div>
           <h1 id='title'>List of All Registered Courses:</h1>
+          <Link to='/list-students'>
+            <button type='button'>List All Students</button>
+          </Link>
           <Link to='/course'>
             <button type='button'>Add New Course</button>
           </Link>

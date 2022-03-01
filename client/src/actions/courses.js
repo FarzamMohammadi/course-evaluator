@@ -9,7 +9,7 @@ export const registerCourse = async function (fromData) {
     return true;
   } catch (error) {
     if (isLoggedIn) {
-      alert('Could not register course');
+      alert(error.response.data.msg);
     } else {
       alert('Need to log in first');
     }
@@ -23,7 +23,7 @@ export const updateCourse = async function (fromData, id) {
     return true;
   } catch (error) {
     if (isLoggedIn) {
-      alert('Could not register course');
+      alert(error.response.data.msg);
     } else {
       alert('Need to log in first');
     }
@@ -38,7 +38,7 @@ export const getCourseById = async function (id) {
     return course;
   } catch (error) {
     if (isLoggedIn) {
-      alert('Could not register course');
+      alert(error.response.data.msg);
     } else {
       alert('Need to log in first');
     }
@@ -53,7 +53,7 @@ export const getCourses = async function () {
     return courses;
   } catch (error) {
     if (isLoggedIn) {
-      alert('Could not register course');
+      alert(error.response.data.msg);
     } else {
       alert('Need to log in first');
     }
@@ -63,14 +63,19 @@ export const getCourses = async function () {
 // Add as attendee
 export const addAsAttendee = async function (courseId) {
   try {
-    console.log();
     const res = await axios.put(`/api/courses/${courseId}/addstudent`);
     return true;
   } catch (error) {
-    if (isLoggedIn) {
-      alert('Could not register course');
-    } else {
-      alert('Need to log in first');
-    }
+    alert(error.response.data.msg);
+  }
+};
+
+// Add as attendee
+export const deleteCourse = async function (courseId) {
+  try {
+    const res = await axios.delete('/api/courses/' + courseId);
+    return true;
+  } catch (error) {
+    alert(error.response.data.msg);
   }
 };

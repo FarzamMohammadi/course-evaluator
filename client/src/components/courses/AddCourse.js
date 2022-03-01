@@ -5,7 +5,7 @@ import {
   getCourseById,
   updateCourse,
 } from '../../actions/courses';
-// import './auth.css';
+import './courses.css';
 
 export default function AddCourse() {
   let navigate = useNavigate();

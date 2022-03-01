@@ -5,6 +5,8 @@ import Login from './components/auth/Login';
 import Register from './components/auth/Register';
 import Courses from './components/courses/AddCourse';
 import ListCourses from './components/courses/ListCourses';
+import ListAttendees from './components/courses/ListAttendees';
+import ListStudents from './components/students/ListStudents';
 import setAuthToken from './utils/setAuthToken';
 import { loadUser } from './actions/auth';
 
@@ -68,6 +70,20 @@ export default class App extends Component {
             path='/list-courses'
             element={
               <ListCourses isAuthenticated={this.state.isAuthenticated} />
+            }
+          />
+          <Route
+            exact
+            path='/list-attendees/:id'
+            element={
+              <ListAttendees isAuthenticated={this.state.isAuthenticated} />
+            }
+          />
+          <Route
+            exact
+            path='/list-students'
+            element={
+              <ListStudents isAuthenticated={this.state.isAuthenticated} />
             }
           />
         </Routes>
