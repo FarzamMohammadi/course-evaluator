@@ -37,14 +37,12 @@ export default function ListAttendees() {
 
   function renderTableData() {
     getAttendeesToShow();
-    const arrayToMap = [];
-    for (const attendee of attendeesInfo) {
-      if (!(attendee in arrayToMap)) {
-        arrayToMap.push(attendee);
-      }
-    }
+    const _ids = attendeesInfo.map((o) => o._id);
 
-    return arrayToMap?.map((attendee, index) => {
+    const filtered = attendeesInfo.filter(
+      ({ _id }, index) => !_ids.includes(_id, index + 1)
+    );
+    return filtered?.map((attendee, index) => {
       const { _id, studentNumber, email } = attendee;
       return (
         <tr key={_id}>
